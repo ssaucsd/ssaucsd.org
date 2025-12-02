@@ -10,7 +10,7 @@ export default async function EventsPage() {
         <div className="flex flex-col gap-4 items-start text-left">
           <h1 className="text-5xl font-black">Upcoming Events</h1>
           <p className="text-xl text-muted-foreground max-w-2xl">
-            Check out what we have planned for the semester.
+            Check out what we have planned.
           </p>
         </div>
 
