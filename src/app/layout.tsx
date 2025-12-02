@@ -12,9 +12,68 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "SSA at UCSD",
-  description:
-    "The official site for the Symphonic Student Association at the University of California, San Diego",
+  metadataBase: new URL("https://ssaucsd.org"),
+  openGraph: {
+    siteName: "SSA at UCSD",
+    type: "website",
+    locale: "en_US",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+    googleBot: "index, follow",
+  },
+  applicationName: "SSA at UCSD",
+  appleWebApp: {
+    title: "SSA at UCSD",
+    statusBarStyle: "default",
+    capable: true,
+  },
+  icons: {
+    icon: [
+      {
+        url: "/favicon/favicon.ico",
+        type: "image/x-icon",
+      },
+      {
+        url: "/favicon/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        url: "/favicon/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "/favicon/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/favicon/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+    shortcut: [
+      {
+        url: "/favicon/favicon.ico",
+        type: "image/x-icon",
+      },
+    ],
+    apple: [
+      {
+        url: "/favicon/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+  manifest: "/favicon/site.webmanifest",
 };
 
 export default function RootLayout({

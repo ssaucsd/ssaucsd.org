@@ -21,8 +21,6 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*": "eslint",
-    "**/*": "tsc --noEmit",
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {

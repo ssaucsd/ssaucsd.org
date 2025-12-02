@@ -1,5 +1,54 @@
 import { getMoreEvents } from "@/queries";
 import { EventCard } from "../_components/event-card";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Upcoming Events | SSA at UCSD",
+  description:
+    "Explore upcoming classical music concerts, recitals, and social gatherings hosted by SSA at UCSD. Join the largest student-run classical music organization at UC San Diego.",
+  keywords: [
+    "ssa ucsd events",
+    "ucsd classical music concerts",
+    "ucsd orchestra schedule",
+    "student recitals ucsd",
+    "music performances ucsd",
+    "ssa events calendar",
+    "classical music",
+    "ucsd",
+  ],
+  openGraph: {
+    url: "https://ssaucsd.org/events",
+    type: "website",
+    title: "Upcoming Events | SSA at UCSD",
+    description:
+      "Explore upcoming classical music concerts, recitals, and social gatherings hosted by SSA at UCSD.",
+    images: [
+      {
+        url: "/hero.webp",
+        width: 600,
+        height: 400,
+        alt: "SSA at UCSD Events",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Upcoming Events | SSA at UCSD",
+    description:
+      "Explore upcoming classical music concerts, recitals, and social gatherings hosted by SSA at UCSD.",
+    images: [
+      {
+        url: "/hero.webp",
+        width: 600,
+        height: 400,
+        alt: "SSA at UCSD Events",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://ssaucsd.org/events",
+  },
+};
 
 export default async function EventsPage() {
   const events = await getMoreEvents();

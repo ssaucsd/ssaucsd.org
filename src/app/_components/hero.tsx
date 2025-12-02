@@ -60,7 +60,6 @@ export default function Hero() {
           width={600}
           height={400}
           className="w-full max-w-[600px] h-auto object-cover rounded-xl shadow-2xl"
-          priority
           preload
         />
       </div>
