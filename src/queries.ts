@@ -1,5 +1,6 @@
 "use cache";
 
+import "server-only";
 import { ssamembersEvent } from "./db/schema";
 import { db } from "./index";
 import { cacheLife } from "next/cache";
