@@ -54,7 +54,7 @@ export default async function EventsPage() {
   const events = await getMoreEvents();
 
   return (
-    <div className="w-full py-24 px-6 bg-background">
+    <div className="w-full py-12 md:py-24 px-6 bg-background">
       <div className="max-w-6xl mx-auto flex flex-col gap-16">
         <div className="flex flex-col gap-4 items-start text-left">
           <h1 className="text-5xl font-black">Upcoming Events</h1>

@@ -22,7 +22,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-6rem)]">
+    <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] pt-12 md:pt-0">
       <div className="flex flex-col lg:flex-row gap-8 items-center px-4">
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
           <h1 className="text-5xl font-black">What is SSA at UCSD?</h1>
