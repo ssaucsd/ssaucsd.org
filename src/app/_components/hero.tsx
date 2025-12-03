@@ -32,11 +32,11 @@ export default function Hero() {
           <h1 className="text-5xl font-black">
             SSA <br /> at <br /> UCSD
           </h1>
-          <h1 className="mt-5 text-2xl font-bold max-w-2xs text-primary">
+          <h2 className="mt-5 text-2xl font-bold max-w-2xs text-primary">
             {
               "We are UCSD's largest student-run classical music-oriented organization."
             }
-          </h1>
+          </h2>
           <div className="mt-5 flex gap-2">
             <Button className="rounded-full text-xl p-5" asChild>
               <Link target="_blank" href="https://members.ssaucsd.org">

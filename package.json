@@ -21,7 +21,9 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --write --ignore-unknown",
+    "**/*.{js,jsx,ts,tsx}": "eslint",
+    "**/*.{ts,tsx}": "bash -c 'tsc --noEmit'"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",

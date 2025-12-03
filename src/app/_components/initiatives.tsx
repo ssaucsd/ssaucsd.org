@@ -60,7 +60,7 @@ export default function Initiatives() {
     <div id="initiatives" className="w-full py-24 px-6 bg-background">
       <div className="max-w-6xl mx-auto flex flex-col gap-16">
         <div className="flex flex-col gap-4 items-start text-left">
-          <h1 className="text-5xl font-black">Initiatives</h1>
+          <h2 className="text-5xl font-black">Initiatives</h2>
           <p className="text-xl text-muted-foreground max-w-2xl">
             {"What we're doing to make music accessible to everyone."}
           </p>
