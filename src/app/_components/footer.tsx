@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NewsletterForm from "./newsletter-form";
 import { Github, Instagram, Linkedin, Mail, Youtube } from "lucide-react";
 import type { ElementType } from "react";
 
@@ -45,7 +46,7 @@ export default function FooterSection() {
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         <h1 className="text-4xl font-bold mb-12">Connect With Us!</h1>
 
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mb-12">
           {/* Social Links Grid */}
           <div className="grid grid-cols-2 gap-y-8 gap-x-12 justify-items-start">
             <SocialLink
@@ -80,7 +81,10 @@ export default function FooterSection() {
             />
           </div>
         </div>
-        <div className="mt-8 flex items-center gap-4">
+
+        <NewsletterForm />
+
+        <div className="flex items-center gap-4">
           <a
             href="https://vercel.com?utm_source=ssa-ucsd&utm_campaign=oss"
             target="_blank"
