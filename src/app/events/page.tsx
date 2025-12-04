@@ -1,5 +1,6 @@
 import { getMoreEvents } from "@/queries";
 import { EventCard } from "../_components/event-card";
+import { CalendarX } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -64,9 +65,14 @@ export default async function EventsPage() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {events.map((event) => (
-            <EventCard key={event.id} {...event} />
-          ))}
+          {events.length > 0 ? (
+            events.map((event) => <EventCard key={event.id} {...event} />)
+          ) : (
+            <div className="col-span-full flex flex-col items-center justify-center gap-4 py-12 text-muted-foreground">
+              <CalendarX className="w-12 h-12" />
+              <p className="text-xl font-medium">No upcoming events :(</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
