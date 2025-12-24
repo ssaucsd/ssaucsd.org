@@ -1,6 +1,4 @@
-import { db } from "@/index";
-import { ssamembersEvent } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { createClient } from "@/utils/supabase/server";
 
 const getLocalTimeAsUTC = () => {
   const now = new Date();
@@ -32,12 +30,18 @@ const getLocalTimeAsUTC = () => {
 };
 
 export default async function DebugEventsPage() {
-  const events = await db
-    .select()
-    .from(ssamembersEvent)
-    .orderBy(desc(ssamembersEvent.date));
+  const supabase = await createClient();
+  const { data: events, error } = await supabase
+    .from("events")
+    .select("*")
+    .order("start_time", { ascending: false });
+
   const now = new Date().toISOString();
   const adjustedNow = getLocalTimeAsUTC();
+
+  if (error) {
+    return <div className="p-8">Error loading events: {error.message}</div>;
+  }
 
   return (
     <div className="p-8 bg-white text-black min-h-screen">
@@ -50,27 +54,21 @@ export default async function DebugEventsPage() {
         <thead>
           <tr className="bg-gray-100">
             <th className="border p-2">ID</th>
-            <th className="border p-2">Name</th>
-            <th className="border p-2">Date (Raw)</th>
-            <th className="border p-2">End Date (Raw)</th>
+            <th className="border p-2">Title</th>
+            <th className="border p-2">Start Time (Raw)</th>
+            <th className="border p-2">End Time (Raw)</th>
             <th className="border p-2">End {">"} Adjusted Now?</th>
           </tr>
         </thead>
         <tbody>
-          {events.map((event) => (
+          {(events ?? []).map((event) => (
             <tr key={event.id}>
               <td className="border p-2">{event.id}</td>
-              <td className="border p-2">{event.name}</td>
-              <td className="border p-2">{event.date}</td>
-              <td className="border p-2">{event.endDate ?? "NULL"}</td>
+              <td className="border p-2">{event.title}</td>
+              <td className="border p-2">{event.start_time}</td>
+              <td className="border p-2">{event.end_time}</td>
               <td className="border p-2">
-                {event.endDate
-                  ? event.endDate > adjustedNow
-                    ? "YES"
-                    : "NO"
-                  : event.date > adjustedNow
-                    ? "YES (Start Date)"
-                    : "NO"}
+                {event.end_time > adjustedNow ? "YES" : "NO"}
               </td>
             </tr>
           ))}

@@ -2,25 +2,25 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
 export function EventCard({
-  name,
-  date,
-  imageUrl,
+  title,
+  start_time,
+  image_url,
   location,
-  endDate,
+  end_time,
 }: {
-  name: string;
-  date: string;
-  imageUrl: string | null;
+  title: string;
+  start_time: string;
+  image_url: string;
   location: string;
-  endDate: string | null;
+  end_time: string;
 }) {
   return (
     <Card className="w-full overflow-hidden border-none shadow-none bg-transparent">
       <div className="relative aspect-4/5 w-full overflow-hidden rounded-xl bg-muted">
-        {imageUrl ? (
+        {image_url ? (
           <Image
-            src={imageUrl}
-            alt={name}
+            src={image_url}
+            alt={title}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
             className="object-cover transition-transform duration-300 hover:scale-105"
@@ -32,23 +32,23 @@ export function EventCard({
         )}
       </div>
       <div className="mt-4 flex flex-col gap-1">
-        <h3 className="text-lg font-semibold leading-tight">{name}</h3>
+        <h3 className="text-lg font-semibold leading-tight">{title}</h3>
         <p className="text-sm font-medium text-muted-foreground">
-          {new Date(date).toLocaleDateString("en-US", {
+          {new Date(start_time).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
             timeZone: "UTC",
           })}
           {" • "}
-          {new Date(date).toLocaleTimeString("en-US", {
+          {new Date(start_time).toLocaleTimeString("en-US", {
             hour: "numeric",
             minute: "2-digit",
             timeZone: "UTC",
           })}
-          {endDate && (
+          {end_time && (
             <>
               {" - "}
-              {new Date(endDate).toLocaleTimeString("en-US", {
+              {new Date(end_time).toLocaleTimeString("en-US", {
                 hour: "numeric",
                 minute: "2-digit",
                 timeZone: "UTC",

@@ -1,61 +1,44 @@
 "use cache";
 
 import "server-only";
-import { ssamembersEvent } from "./db/schema";
-import { db } from "./index";
 import { cacheLife } from "next/cache";
-
-import { asc, gt, or, and, isNotNull, isNull } from "drizzle-orm";
+import { createAnonClient } from "@/utils/supabase/server";
 
 export const getEvents = async () => {
   cacheLife("minutes");
   const now = new Date().toISOString();
-  const events = await db
-    .select({
-      id: ssamembersEvent.id,
-      name: ssamembersEvent.name,
-      date: ssamembersEvent.date,
-      imageUrl: ssamembersEvent.imageUrl,
-      location: ssamembersEvent.location,
-      endDate: ssamembersEvent.endDate,
-    })
-    .from(ssamembersEvent)
-    .where(
-      or(
-        and(
-          isNotNull(ssamembersEvent.endDate),
-          gt(ssamembersEvent.endDate, now),
-        ),
-        and(isNull(ssamembersEvent.endDate), gt(ssamembersEvent.date, now)),
-      ),
-    )
-    .orderBy(asc(ssamembersEvent.date))
+  const supabase = createAnonClient();
+
+  const { data, error } = await supabase
+    .from("events")
+    .select("id, title, start_time, end_time, image_url, location")
+    .gt("end_time", now)
+    .order("start_time", { ascending: true })
     .limit(4);
-  return events;
+
+  if (error) {
+    console.error("Error fetching events:", error);
+    return [];
+  }
+
+  return data ?? [];
 };
 
 export const getMoreEvents = async () => {
   cacheLife("minutes");
   const now = new Date().toISOString();
-  const events = await db
-    .select({
-      id: ssamembersEvent.id,
-      name: ssamembersEvent.name,
-      date: ssamembersEvent.date,
-      imageUrl: ssamembersEvent.imageUrl,
-      location: ssamembersEvent.location,
-      endDate: ssamembersEvent.endDate,
-    })
-    .from(ssamembersEvent)
-    .where(
-      or(
-        and(
-          isNotNull(ssamembersEvent.endDate),
-          gt(ssamembersEvent.endDate, now),
-        ),
-        and(isNull(ssamembersEvent.endDate), gt(ssamembersEvent.date, now)),
-      ),
-    )
-    .orderBy(asc(ssamembersEvent.date));
-  return events;
+  const supabase = createAnonClient();
+
+  const { data, error } = await supabase
+    .from("events")
+    .select("id, title, start_time, end_time, image_url, location")
+    .gt("end_time", now)
+    .order("start_time", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching events:", error);
+    return [];
+  }
+
+  return data ?? [];
 };

@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "ba961nquml.ufs.sh",
       },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+      },
     ],
   },
   async rewrites() {
