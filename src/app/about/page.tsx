@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import Hero from "./_components/hero";
 import Involved from "./_components/involved";
 import Mission from "./_components/mission";
@@ -55,6 +56,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
+      <div className="px-6 pt-6">
+        <Breadcrumb items={[{ name: "About Us" }]} />
+      </div>
       <Hero />
       <Mission />
       <Involved />

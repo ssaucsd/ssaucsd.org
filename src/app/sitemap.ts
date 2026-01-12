@@ -1,9 +1,11 @@
 import { MetadataRoute } from "next";
+import { createAnonClient } from "@/utils/supabase/server";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://ssaucsd.org";
 
-  return [
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -23,4 +25,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
   ];
+
+  // Fetch events for dynamic pages
+  let eventPages: MetadataRoute.Sitemap = [];
+  try {
+    const supabase = createAnonClient();
+    const { data: events } = await supabase
+      .from("events")
+      .select("id, updated_at")
+      .order("start_time", { ascending: false });
+
+    if (events) {
+      eventPages = events.map((event) => ({
+        url: `${baseUrl}/events/${event.id}`,
+        lastModified: event.updated_at
+          ? new Date(event.updated_at)
+          : new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching events for sitemap:", error);
+  }
+
+  return [...staticPages, ...eventPages];
 }

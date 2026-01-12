@@ -1,4 +1,5 @@
 import { getMoreEvents } from "@/queries";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { EventCard } from "../_components/event-card";
 import { CalendarX } from "lucide-react";
 import type { Metadata } from "next";
@@ -58,6 +59,7 @@ export default async function EventsPage() {
     <div className="w-full py-12 md:py-24 px-6 bg-background">
       <div className="w-3/4 mx-auto flex flex-col gap-16">
         <div className="flex flex-col gap-4 items-start text-left">
+          <Breadcrumb items={[{ name: "Events" }]} className="mb-2" />
           <h1 className="text-5xl font-black">Upcoming Events</h1>
           <p className="text-xl text-muted-foreground max-w-2xl">
             Check out what we have planned.

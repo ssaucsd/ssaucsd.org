@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import { createClient } from "@/utils/supabase/server";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+};
 
 const getLocalTimeAsUTC = () => {
   const now = new Date();

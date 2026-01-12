@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import { Suspense } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
+import {
+  generateSiteNavigationSchema,
+  generateWebSiteSchema,
+} from "@/lib/schemas";
 
 import "./globals.css";
 import Navbar from "./_components/navbar";
@@ -84,7 +88,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              generateWebSiteSchema(),
+              ...generateSiteNavigationSchema(),
+            ]),
+          }}
+        />
+      </head>
       <body
         className={`${figtree.variable} antialiased min-h-screen flex flex-col`}
       >
