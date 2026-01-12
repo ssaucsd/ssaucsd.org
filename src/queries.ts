@@ -42,3 +42,21 @@ export const getMoreEvents = async () => {
 
   return data ?? [];
 };
+
+export const getEventById = async (id: string) => {
+  cacheLife("minutes");
+  const supabase = createAnonClient();
+
+  const { data, error } = await supabase
+    .from("events")
+    .select("id, title, description, start_time, end_time, image_url, location")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error("Error fetching event:", error);
+    return null;
+  }
+
+  return data;
+};
