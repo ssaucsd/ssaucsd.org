@@ -30,18 +30,11 @@ export default function Navbar({ currentPath, navIconSrc }: NavbarProps) {
     <div className="fixed top-0 z-50 bg-background w-full border-b-3 border-primary flex flex-col">
       <div className="flex w-full justify-between items-center p-2">
         <a
-          className="flex flex-row items-center text-xl font-black mr-2"
+          className="flex flex-row items-center text-2xl font-black mr-2"
           href="/"
           onClick={(e) => handleLinkClick(e, "/")}
         >
-          <img
-            src={navIconSrc}
-            alt="SSA at UCSD"
-            width={72}
-            height={72}
-            className="mr-1"
-          />
-          at UC San Diego
+          SSA at UC San Diego
         </a>
 
         {/* Desktop Menu */}
