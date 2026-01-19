@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import { MapPin } from "lucide-react";
+import type { Event } from "@/lib/supabase";
+
+interface Props extends Event {}
+
+const { id, title, start_time, image_url, location, end_time } = Astro.props;
+
+const startDate = new Date(start_time);
+const endDate = end_time ? new Date(end_time) : null;
+
+const formattedDate = startDate.toLocaleDateString("en-US", {
+  weekday: "short",
+  month: "short",
+  day: "numeric",
+  timeZone: "America/Los_Angeles",
+});
+
+const formattedStartTime = startDate.toLocaleTimeString("en-US", {
+  hour: "numeric",
+  minute: "2-digit",
+  timeZone: "America/Los_Angeles",
+});
+
+const formattedEndTime = endDate
+  ? endDate.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "America/Los_Angeles",
+    })
+  : null;
+---
+
+<a href={`/events/${id}`} class="block h-full">
+  <div class="group h-full flex flex-col gap-0 overflow-hidden rounded-lg border border-border bg-card p-0 shadow-sm transition-shadow duration-200 hover:shadow-md">
+    <!-- Image container -->
+    <div class="relative w-full bg-muted/50">
+      {image_url ? (
+        <Image
+          src={image_url}
+          alt={title}
+          width={400}
+          height={500}
+          class="w-full h-auto object-contain"
+        />
+      ) : (
+        <div class="flex aspect-4/5 w-full items-center justify-center text-muted-foreground">
+          No Image
+        </div>
+      )}
+    </div>
+
+    <!-- Content section -->
+    <div class="flex flex-1 flex-col gap-2 p-4">
+      <h3 class="text-base font-semibold leading-tight tracking-tight">
+        {title}
+      </h3>
+      <p class="text-sm font-medium text-primary">
+        {formattedDate}
+        {" · "}
+        {formattedStartTime}
+        {formattedEndTime && (
+          <>
+            {" – "}
+            {formattedEndTime}
+          </>
+        )}
+      </p>
+      <p class="mt-auto flex items-center gap-1.5 text-sm text-muted-foreground">
+        <MapPin className="h-3.5 w-3.5 shrink-0" />
+        <span class="truncate">{location}</span>
+      </p>
+    </div>
+  </div>
+</a>

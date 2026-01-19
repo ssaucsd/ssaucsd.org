@@ -1,5 +1,3 @@
-// JSON-LD Schema generators for SEO structured data
-
 const BASE_URL = "https://ssaucsd.org";
 
 export interface BreadcrumbItem {
