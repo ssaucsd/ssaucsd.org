@@ -1,0 +1,117 @@
+---
+import { getImage } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import Hero from "@/components/Hero";
+import InitiativeCard from "@/components/InitiativeCard.astro";
+import EventCard from "@/components/EventCard.astro";
+import { getEvents } from "@/lib/supabase";
+import { CalendarX } from "lucide-react";
+import heroImageSrc from "@/assets/hero.webp";
+
+const events = await getEvents(4);
+
+// Generate optimized hero image
+const heroImage = await getImage({ src: heroImageSrc, width: 600, height: 400 });
+
+const INITIATIVES = [
+  {
+    title: "Ensemble",
+    description:
+      "Our core orchestra that performs quarterly concerts featuring classical and contemporary repertoire. Open to all skill levels.",
+    icon: "Music" as const,
+    color: "bg-red-400",
+  },
+  {
+    title: "Community",
+    description:
+      "Connect with fellow classical music enthusiasts through rehearsals, performances, and various social opportunities throughout the year and build lasting friendships.",
+    icon: "Users" as const,
+    color: "bg-teal-400",
+  },
+  {
+    title: "Socials",
+    description:
+      "Social gatherings, cheap concerts, and other events to connect with fellow members.",
+    icon: "Calendar" as const,
+    color: "bg-orange-400",
+  },
+  {
+    title: "Weekly Rehearsals",
+    description:
+      "Join us every Wednesday evening for music-making and social opportunities in preparation for quartely performances.",
+    icon: "Heart" as const,
+    color: "bg-pink-400",
+  },
+];
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Symphonic Student Association at UCSD",
+  url: "https://ssaucsd.org",
+  logo: "https://ssaucsd.org/favicon/android-chrome-512x512.png",
+  sameAs: [
+    "https://github.com/ssaucsd",
+    "https://www.instagram.com/ssa_at_ucsd",
+    "https://linkedin.com/company/symphonic-student-association",
+    "http://www.youtube.com/@symphonicstudentassociatio8977",
+    "https://discord.gg/PncDrAxvkS",
+  ],
+  description:
+    "SSA at UCSD - University of California, San Diego's largest student-run classical music-oriented organization.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "La Jolla",
+    addressRegion: "CA",
+    postalCode: "92093",
+    addressCountry: "US",
+  },
+};
+---
+
+<Layout title="SSA at UCSD">
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+  <Hero imageSrc={heroImage.src} client:visible />
+
+  <!-- Initiatives Section -->
+  <div id="initiatives" class="w-full py-24 px-6 bg-background">
+    <div class="max-w-6xl mx-auto flex flex-col gap-16">
+      <div class="flex flex-col gap-4 items-start text-left">
+        <h2 class="text-5xl font-black">Initiatives</h2>
+        <p class="text-xl text-muted-foreground max-w-2xl">
+          {"What we're doing to make music accessible to everyone."}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+        {INITIATIVES.map((item) => (
+          <InitiativeCard {...item} />
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Events Section -->
+  <div class="w-full py-24 px-6 bg-background">
+    <div class="max-w-6xl mx-auto flex flex-col gap-16">
+      <div class="flex flex-col gap-4 items-start text-left">
+        <h2 class="text-5xl font-black">Events</h2>
+        <p class="text-xl text-muted-foreground max-w-2xl">
+          {"What's coming up."}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {events.length > 0 ? (
+          events.map((event) => <EventCard {...event} />)
+        ) : (
+          <div class="col-span-full flex flex-col items-center justify-center gap-4 py-12 text-muted-foreground">
+            <CalendarX className="w-12 h-12" />
+            <p class="text-xl font-medium">No upcoming events :(</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</Layout>
